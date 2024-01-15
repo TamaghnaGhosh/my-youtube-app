@@ -1,18 +1,37 @@
+import { useDispatch } from "react-redux";
+import { HAMBURGER_MENU, LOGO_APP, USERICON } from "../utilts/constants";
+import { toggleMenu } from "../utilts/appSlice";
+
 const Head = () => {
+  const dispatch = useDispatch();
+  const handleSideBarMenu = () => {
+    dispatch(toggleMenu());
+  };
   return (
-    <div>
-      <div>
-        <img className=""
+    <div className="grid grid-flow-col p-2 m-2 shadow-lg">
+      <div className="flex col-span-1">
+        <img
+          className="h-8 cursor-pointer"
           alt="menu"
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAARVBMVEX///8jHyAgHB0OBQgMAAWlpKQpJSaenZ309PUAAAAIAAD8/Pz5+fna2tqop6dvbW1oZmevrq4tKivFxMQYExRiYGC+vr7Dc4WrAAABB0lEQVR4nO3cS3LCMBAFQGIIIBPbhN/9jxqSyiIsTUnlydB9g1eSNV5MvdUKAAAAAAAAAAAAAAAAXtEwvscwDk3yHabSb2Loy/TRIOHUv8XRH+sHHMrSqR6U+hd1jHSE90P8lHC2/Lc0/0vzMy3WMdynxaFBwu+Jv4uh0cQHAAAAAAAAAIB59jG0ijdcT9sYTtcmK0PncumiuJRz/YD7bbf0ut4f3br+GvQt2PblrXrC3WbpUA/6sXrC/GeY/zvM/5aGmofHZiu0S//M/GoVDwAAAAAAAAAAZsjeuRerN1HL7hPy95fm76DNnzD/Lc3/0rxAJ3v+Xn0AAAAAAAAAAAAAAAD4T74AYhs1O+vt3ioAAAAASUVORK5CYII="
+          src={HAMBURGER_MENU}
+          onClick={() => handleSideBarMenu()}
         />
-        <img className=""
-          alt="logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1920px-YouTube_Logo_2017.svg.png"
+        <a href="/">
+          <img className="h-8 mx-2" alt="youtubeLogo" src={LOGO_APP} />
+        </a>
+      </div>
+      <div className="col-span-10 px-10">
+        <input
+          type="text"
+          placeholder="placeholder"
+          className="w-1/2 border border-gray-400 rounded-l-full p-1"
         />
+        <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
+          🔍
+        </button>
       </div>
       <div>
-        <input type="text" placeholder="placeholder" />
+        <img className="h-8 col-span-1" alt="user" src={USERICON} />
       </div>
     </div>
   );
