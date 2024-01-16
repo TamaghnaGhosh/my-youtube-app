@@ -23,7 +23,7 @@ const Head = () => {
       <div className="col-span-10 px-10">
         <input
           type="text"
-          placeholder="placeholder"
+          placeholder="Search"
           className="w-1/2 border border-gray-400 rounded-l-full p-1"
         />
         <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
