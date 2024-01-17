@@ -38,33 +38,40 @@ new Map();
 # but if the difference between 2 API call is <200ms
 # decline the api call
 
-key - i
+### key - i
   - render the component
   - useEffect();
-  - start timer => make the API call after 200ms
-key - ip 
+  - start timer => make the API call after 200ms -
+
+
+### key - ip 
   - destroy the component(useEffect return method)
   - re-render the component
   - useEffect();
-  - start timer => make the API call after 200ms
-key - iph 
+  - start timer => make the API call after 200ms - 
+
+
+### key - iph 
   - destroy the component(useEffect return method)
   - re-render the component
   - useEffect();
-  - start timer => make the API call after 200ms
-key - ipho 
+  - start timer => make the API call after 200ms - 
+
+### key - ipho 
   - destroy the component(useEffect return method)
   - re-render the component
   - useEffect();
-  - start timer => make the API call after 200ms
-key - iphon 
+  - start timer => make the API call after 200ms -
+
+### key - iphon 
   - destroy the component(useEffect return method)
   - re-render the component
   - useEffect();
-  - start timer => make the API call after 200ms
-key - iphone 
+  - start timer => make the API call after 200ms -
+
+### key - iphone 
   - destroy the component(useEffect return method)
   - re-render the component
   - useEffect();
-  - start timer => make the API call after 200ms        
+  - start timer => make the API call after 200ms -       
 
