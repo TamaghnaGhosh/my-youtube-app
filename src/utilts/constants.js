@@ -10,3 +10,7 @@ const GOOGLE_API_KEY = "AIzaSyD8ul3SEAgiVbGwsDlQ6kD1ajCX6KMLsvo";
 export const YOUTUBE_VIDEOS_API =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" +
   GOOGLE_API_KEY;
+
+const CORS_API_KEY = "https://corsproxy.plentygram.com/";
+
+export const YOUTUBE_SEARCH_API = `${CORS_API_KEY}https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`;

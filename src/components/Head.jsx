@@ -1,9 +1,37 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { HAMBURGER_MENU, LOGO_APP, USERICON } from "../utilts/constants";
+import {
+  HAMBURGER_MENU,
+  LOGO_APP,
+  USERICON,
+  YOUTUBE_SEARCH_API,
+} from "../utilts/constants";
 import { toggleMenu } from "../utilts/appSlice";
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    // API call used Debouncing method
+    const timer = setTimeout(() => {
+      getSearchSuggestions();
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
+
+  const getSearchSuggestions = async () => {
+    console.log("🚀 ~ Head ~ searchQuery for API :", searchQuery);
+    const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
+    const json = await data.json();
+    console.log(json?.[1]);
+  };
+
   const dispatch = useDispatch();
+
   const handleSideBarMenu = () => {
     dispatch(toggleMenu());
   };
@@ -21,10 +49,13 @@ const Head = () => {
         </a>
       </div>
       <div className="col-span-10 px-10">
+        <div></div>
         <input
           type="text"
           placeholder="Search"
           className="w-1/2 border border-gray-400 rounded-l-full p-1"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
           🔍
