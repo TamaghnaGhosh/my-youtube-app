@@ -23,7 +23,7 @@ const VideoCard = ({ info }) => {
 export const AdVideoCard = ({ info }) => {
   return (
     <div className="border border-red-500 bg-red-200 rounded-lg">
-      <h1 className="absolute p-2 m-2 font-bold text-red-700 text-lg">Higher Order Component</h1>
+      <h1 className="absolute p-2 m-2 font-bold text-purple-600 text-lg">Higher Order Component</h1>
       <VideoCard info={info} />
     </div>
   );

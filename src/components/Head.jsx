@@ -11,6 +11,8 @@ import { toggleMenu } from "../utilts/appSlice";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggetions, setSuggetions] = useState([]);
+  const [showSuggetions, setShowSuggetions] = useState(false);
 
   useEffect(() => {
     // API call used Debouncing method
@@ -24,10 +26,9 @@ const Head = () => {
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
-    console.log("🚀 ~ Head ~ searchQuery for API :", searchQuery);
     const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
     const json = await data.json();
-    console.log(json?.[1]);
+    setSuggetions(json?.[1]);
   };
 
   const dispatch = useDispatch();
@@ -49,17 +50,35 @@ const Head = () => {
         </a>
       </div>
       <div className="col-span-10 px-10">
-        <div></div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-1/2 border border-gray-400 rounded-l-full p-1"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
-          🔍
-        </button>
+        <div>
+          <input
+            type="text"
+            placeholder="Search"
+            className="px-6 w-1/2 border border-gray-400 rounded-l-full p-1"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setShowSuggetions(true)}
+            onBlur={() => setShowSuggetions(false)}
+          />
+          <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
+            🔍
+          </button>
+
+          {showSuggetions && suggetions?.length > 0 && (
+            <div className="absolute my-1 py-2 px-2  bg-white w-[675px] rounded-lg shadow-lg border border-gray-200 z-10">
+              <ul>
+                {suggetions?.map((suggetion) => (
+                  <li
+                    className="py-1 px-3 shadow-sm hover:bg-gray-100"
+                    key={suggetion}
+                  >
+                    🔍 {suggetion}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
       <div>
         <img className="h-8 col-span-1" alt="user" src={USERICON} />
