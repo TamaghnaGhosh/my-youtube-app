@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   HAMBURGER_MENU,
   LOGO_APP,
@@ -8,30 +8,43 @@ import {
   YOUTUBE_SEARCH_API,
 } from "../utilts/constants";
 import { toggleMenu } from "../utilts/appSlice";
+import { Link } from "react-router-dom";
+import { cacheResults } from "../utilts/searchSlice";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggetions, setSuggetions] = useState([]);
   const [showSuggetions, setShowSuggetions] = useState(false);
 
+  const searchCaches = useSelector((store) => store.search);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // API call used Debouncing method
     const timer = setTimeout(() => {
-      getSearchSuggestions();
+      if (searchCaches[searchQuery]) {
+        setSuggetions(searchCaches[searchQuery]);
+      } else {
+        getSearchSuggestions();
+      }
+      console.log(searchCaches[searchQuery]);
     }, 200);
-
     return () => {
       clearTimeout(timer);
     };
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
+    console.log("API call");
     const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
     const json = await data.json();
     setSuggetions(json?.[1]);
+    dispatch(
+      cacheResults({
+        [searchQuery]: json?.[1],
+      })
+    );
   };
-
-  const dispatch = useDispatch();
 
   const handleSideBarMenu = () => {
     dispatch(toggleMenu());
@@ -58,7 +71,7 @@ const Head = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggetions(true)}
-            onBlur={() => setShowSuggetions(false)}
+            // onBlur={() => setShowSuggetions(false)}
           />
           <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
             🔍
@@ -68,12 +81,15 @@ const Head = () => {
             <div className="absolute my-1 py-2 px-2  bg-white w-[675px] rounded-lg shadow-lg border border-gray-200 z-10">
               <ul>
                 {suggetions?.map((suggetion) => (
-                  <li
-                    className="py-1 px-3 shadow-sm hover:bg-gray-100"
+                  <Link
+                    to={`/${suggetion}`}
                     key={suggetion}
+                    className="cursor-default"
                   >
-                    🔍 {suggetion}
-                  </li>
+                    <li className="py-1 px-3 shadow-sm hover:bg-gray-100">
+                      🔍 {suggetion}
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>

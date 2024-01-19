@@ -1,10 +1,15 @@
+import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import Body from "./components/Body";
-import Head from "./components/Head";
+// import Head from "./components/Head";
 import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/MainContainerComponent/MainContainer";
-import WatchPage from "./components/MainContainerComponent/WatchPage";
+// import WatchPage from "./components/MainContainerComponent/WatchPage";
+
+const WatchPage = lazy(() =>
+  import("./components/MainContainerComponent/WatchPage")
+);
 
 const appRouter = createBrowserRouter([
   {
@@ -17,7 +22,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/watch",
-        element: <WatchPage />,
+        element: (
+          <Suspense fallback={<h1 className="text-6xl">Loading....</h1>}>
+            <WatchPage />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -27,7 +36,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <div>
-        <Head />
+        {/* <Head /> */}
         <RouterProvider router={appRouter} />
       </div>
     </Provider>
