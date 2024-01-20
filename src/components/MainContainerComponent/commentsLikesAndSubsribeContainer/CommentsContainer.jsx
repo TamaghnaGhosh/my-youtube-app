@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import {
   COMMETS_API,
-  GOOGLE_API_KEY,
+  googleApiKey,
   USERICON,
 } from "../../../utilts/constants";
 
@@ -88,12 +88,12 @@ const CommentsContainer = ({ videoId }) => {
 
   useEffect(() => {
     fetchComments();
-  }, [videoId, GOOGLE_API_KEY]);
+  }, [videoId, googleApiKey]);
 
   const fetchComments = async () => {
     try {
       const response = await fetch(
-        `${COMMETS_API}${videoId}&key=${GOOGLE_API_KEY}`
+        `${COMMETS_API}${videoId}&key=${googleApiKey}`
       );
 
       if (!response.ok) {

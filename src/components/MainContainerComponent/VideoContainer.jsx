@@ -16,7 +16,7 @@ const VideoContainer = () => {
   };
   return (
     <div className="flex flex-wrap">
-      {videos[0] && (
+      {videos?.[0] && (
         <Link to={`/watch?v=${videos[0]?.id}`}>
           <AdVideoCard info={videos[0]} />
         </Link>
