@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import Body from "./components/Body";
@@ -5,11 +6,12 @@ import Body from "./components/Body";
 import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/MainContainerComponent/MainContainer";
-// import WatchPage from "./components/MainContainerComponent/WatchPage";
 
 const WatchPage = lazy(() =>
   import("./components/MainContainerComponent/WatchPage")
 );
+// import WatchPage from "./components/MainContainerComponent/WatchPage";
+
 
 const appRouter = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      // {
+      //   path: "/watch",
+      //   element: <WatchPage />,
+      // },
     ],
   },
 ]);
