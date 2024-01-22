@@ -12,7 +12,7 @@ const VideoCard = ({ info }) => {
         className="rounded-lg"
       />
       <ul>
-        <li className="font-bold py-2">{title}</li>
+        <li className="font-bold py-2 text-sm">{title}</li>
         <li>{channelTitle}</li>
         <li>{statistics?.viewCount}</li>
       </ul>

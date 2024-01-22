@@ -2,7 +2,7 @@
 import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import Body from "./components/Body";
-// import Head from "./components/Head";
+import Head from "./components/Head";
 import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/MainContainerComponent/MainContainer";
@@ -42,7 +42,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <div>
-        {/* <Head /> */}
+        <Head />
         <RouterProvider router={appRouter} />
       </div>
     </Provider>
