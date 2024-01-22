@@ -6,7 +6,7 @@ import Head from "./components/Head";
 import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/MainContainerComponent/MainContainer";
-
+import Error from "./components/ErrorComponent/Error";
 const WatchPage = lazy(() =>
   import("./components/MainContainerComponent/WatchPage")
 );
@@ -35,6 +35,9 @@ const appRouter = createBrowserRouter([
       //   element: <WatchPage />,
       // },
     ],
+    
+    //This component helps when it gets a 404 error (errorElement)
+    errorElement: <Error />
   },
 ]);
 
