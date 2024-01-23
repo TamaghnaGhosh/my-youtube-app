@@ -1,12 +1,21 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
+  
   const isMenuOpenClick = useSelector((store) => store.app.isMenuOpen);
+
   if (!isMenuOpenClick) return null;
 
   return (
-    <div className="p-5 shadow-lg w-[75%]">
+    <div
+      className={
+        location.pathname === "/watch"
+          ? "p-5 shadow-lg w-48"
+          : "p-5 shadow-lg w-full"
+      }
+    >
       <ul>
         <li>
           <Link to={"/"}>Home</Link>

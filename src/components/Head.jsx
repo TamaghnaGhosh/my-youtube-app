@@ -8,7 +8,6 @@ import {
   YOUTUBE_SEARCH_API,
 } from "../utilts/constants";
 import { toggleMenu } from "../utilts/appSlice";
-import { Link } from "react-router-dom";
 import { cacheResults } from "../utilts/searchSlice";
 
 const Head = () => {
@@ -48,6 +47,14 @@ const Head = () => {
   const handleSideBarMenu = () => {
     dispatch(toggleMenu());
   };
+  
+  const handleSearchSuggetionsClick = (e, suggetion) => {
+    e.stopPropagation();
+    console.log("🚀 ~ handleSearchSuggetionsClick ~ suggetion:", suggetion);
+    setSearchQuery(suggetion);
+    setShowSuggetions(false);
+  };
+
   return (
     <div className="grid grid-flow-col p-2 m-2 shadow-lg">
       <div className="flex col-span-1">
@@ -70,7 +77,7 @@ const Head = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggetions(true)}
-            // onBlur={() => setShowSuggetions(false)}
+            onBlur={() => setShowSuggetions(false)}
           />
           <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
             🔍
@@ -80,15 +87,13 @@ const Head = () => {
             <div className="absolute my-1 py-2 px-2  bg-white w-[675px] rounded-lg shadow-lg border border-gray-200 z-10">
               <ul>
                 {suggetions?.map((suggetion) => (
-                  <Link
-                    to={`/${suggetion}`}
+                  <li
+                    className="py-1 px-3 shadow-sm hover:bg-gray-100"
                     key={suggetion}
-                    className="cursor-default"
+                    onClick={(e) => handleSearchSuggetionsClick(e, suggetion)}
                   >
-                    <li className="py-1 px-3 shadow-sm hover:bg-gray-100">
-                      🔍 {suggetion}
-                    </li>
-                  </Link>
+                    🔍 {suggetion}
+                  </li>
                 ))}
               </ul>
             </div>
