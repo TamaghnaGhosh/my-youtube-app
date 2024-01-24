@@ -5,10 +5,10 @@ import Body from "./components/Body";
 import Head from "./components/Head";
 import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import MainContainer from "./components/MainContainerComponent/MainContainer";
+import MainContainer from "./components/Body/MainContainerAlltheSection/MainContainer";
 import Error from "./components/ErrorComponent/Error";
 const WatchPage = lazy(() =>
-  import("./components/MainContainerComponent/WatchPage")
+  import("./components/Body/WatchPage")
 );
 // import WatchPage from "./components/MainContainerComponent/WatchPage";
 
