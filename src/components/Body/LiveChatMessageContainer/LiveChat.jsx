@@ -53,8 +53,8 @@ const LiveChat = () => {
         <input
           className={
             isMenuOpen
-              ? "w-[350px] rounded-full p-2 m-2"
-              : "w-[550px] rounded-full p-2 m-2"
+              ? "w-[350px] rounded-full p-2 m-2 border border-gray-200"
+              : "w-[550px] rounded-full p-2 m-2 border border-gray-200"
           }
           placeholder="chat...."
           type="text"

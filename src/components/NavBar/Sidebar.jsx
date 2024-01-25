@@ -3,15 +3,16 @@ import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const location = useLocation();
-  
+
   const isMenuOpenClick = useSelector((store) => store.app.isMenuOpen);
 
   if (!isMenuOpenClick) return null;
 
+  const pages = ["/watch", "/demo"];
   return (
     <div
       className={
-        location.pathname === "/watch"
+        pages.find((page) => page === location?.pathname)
           ? "p-5 shadow-lg w-48"
           : "p-5 shadow-lg w-full"
       }
@@ -19,6 +20,9 @@ const Sidebar = () => {
       <ul>
         <li>
           <Link to={"/"}>Home</Link>
+        </li>
+        <li>
+          <Link to={"/demo"}>Demo</Link>
         </li>
         <li> Shorts</li>
         <li> Videos</li>

@@ -7,11 +7,10 @@ import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/Body/MainContainerAlltheSection/MainContainer";
 import Error from "./components/ErrorComponent/Error";
-const WatchPage = lazy(() =>
-  import("./components/Body/WatchPage")
-);
+import Demo from "./components/Demo";
+import Demo2 from "./components/Demo2";
+const WatchPage = lazy(() => import("./components/Body/WatchPage"));
 // import WatchPage from "./components/MainContainerComponent/WatchPage";
-
 
 const appRouter = createBrowserRouter([
   {
@@ -30,14 +29,23 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "/demo",
+        element: (
+          <>
+            <Demo />
+            <Demo2 />
+          </>
+        ),
+      },
       // {
       //   path: "/watch",
       //   element: <WatchPage />,
       // },
     ],
-    
+
     //This component helps when it gets a 404 error (errorElement)
-    errorElement: <Error />
+    errorElement: <Error />,
   },
 ]);
 
