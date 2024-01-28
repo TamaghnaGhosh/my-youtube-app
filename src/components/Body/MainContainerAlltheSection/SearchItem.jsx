@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { googleApiKey } from "../../utilts/constants";
+import { googleApiKey } from "../../../utilts/constants";
 
 const YouTubeSearch = () => {
   const [query, setQuery] = useState("");
@@ -9,7 +9,7 @@ const YouTubeSearch = () => {
   const handleSearch = async () => {
     try {
       if (query?.trim() !== "") {
-        const apiUrl = `https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&type=video&maxResults=10&key=${apiKey}`;
+        const apiUrl = `https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&type=video&maxResults=20&key=${apiKey}`;
         const response = await fetch(apiUrl);
         const data = await response?.json();
 
@@ -30,13 +30,14 @@ const YouTubeSearch = () => {
   return (
     <div>
       <input
+        className="border border-black p-2 m-2 mx-2 py-[2px] rounded-lg"
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button onClick={() => handleSearch()}>Search</button>
+      <button onClick={() => handleSearch()} className="bg-slate-500 mx-2 m-2 py-[2px] p-2 rounded-lg text-white">Search</button>
 
-      <ul>
+      <ul className="p-2 m-2">
         {videos?.map((video) => (
           <li key={video.id.videoId}>
             <h3>{video.snippet.title}</h3>

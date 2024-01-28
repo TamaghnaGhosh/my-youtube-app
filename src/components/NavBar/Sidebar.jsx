@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   if (!isMenuOpenClick) return null;
 
-  const pages = ["/watch", "/demo"];
+  const pages = ["/watch", "/demo", "/search"];
   return (
     <div
       className={

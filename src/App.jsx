@@ -10,6 +10,9 @@ import Error from "./components/ErrorComponent/Error";
 import Demo from "./components/Demo";
 import Demo2 from "./components/Demo2";
 const WatchPage = lazy(() => import("./components/Body/WatchPage"));
+const YouTubeSearch = lazy(() =>
+  import("./components/Body/MainContainerAlltheSection/SearchItem")
+);
 // import WatchPage from "./components/MainContainerComponent/WatchPage";
 
 const appRouter = createBrowserRouter([
@@ -36,6 +39,14 @@ const appRouter = createBrowserRouter([
             <Demo />
             <Demo2 />
           </>
+        ),
+      },
+      {
+        path: "/search",
+        element: (
+          <Suspense fallback={<h1 className="text-6xl">Loading....</h1>}>
+            <YouTubeSearch />
+          </Suspense>
         ),
       },
       // {
