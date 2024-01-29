@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { YOUTUBE_VIDEOS_API } from "../../../utilts/constants";
 import VideoCard, { AdVideoCard } from "./VideoCard";
 import { Link } from "react-router-dom";
-
+import Shimmer from "../../../utilts/shimmerLoading";
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
   useEffect(() => {
@@ -14,6 +14,9 @@ const VideoContainer = () => {
     // console.log(json);
     setVideos(json?.items);
   };
+  if (videos?.length === 0) {
+    return <Shimmer />;
+  }
   return (
     <div className="flex flex-wrap">
       {videos?.length > 0 && (
