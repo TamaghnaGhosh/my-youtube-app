@@ -47,7 +47,7 @@ const Head = () => {
   const handleSideBarMenu = () => {
     dispatch(toggleMenu());
   };
-  
+
   const handleSearchSuggetionsClick = (e, suggetion) => {
     e.stopPropagation();
     console.log("🚀 ~ handleSearchSuggetionsClick ~ suggetion:", suggetion);
@@ -82,22 +82,23 @@ const Head = () => {
           <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
             🔍
           </button>
-
-          {showSuggetions && suggetions?.length > 0 && (
-            <div className="absolute my-1 py-2 px-2  bg-white w-[675px] rounded-lg shadow-lg border border-gray-200 z-10">
-              <ul>
-                {suggetions?.map((suggetion) => (
-                  <li
-                    className="py-1 px-3 shadow-sm hover:bg-gray-100"
-                    key={suggetion}
-                    onClick={(e) => handleSearchSuggetionsClick(e, suggetion)}
-                  >
-                    🔍 {suggetion}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <div id="showSuggetionsId" className="showSuggetionsClass">
+            {showSuggetions && suggetions?.length > 0 && (
+              <div className="absolute my-1 py-2 px-2  bg-white w-[675px] rounded-lg shadow-lg border border-gray-200 z-10">
+                <ul>
+                  {suggetions?.map((suggetion) => (
+                    <li
+                      className="py-1 px-3 shadow-sm hover:bg-gray-100"
+                      key={suggetion}
+                      onClick={(e) => handleSearchSuggetionsClick(e, suggetion)}
+                    >
+                      🔍 {suggetion}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div>
