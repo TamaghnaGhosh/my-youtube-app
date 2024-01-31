@@ -77,17 +77,17 @@ const Head = () => {
     setShowSuggetions(false);
   };
 
-  const handleSearchSuggestionsClick = (suggestion) => {
-    handleSuggestionSelect(suggestion);
-  };
+  // const handleSearchSuggestionsClick = (suggestion) => {
+  //   handleSuggestionSelect(suggestion);
+  // };
 
-  const handleInputBlur = () => {
-    // Handle onBlur - if a suggestion is selected, set it as the search query
-    if (selectedSuggestion !== null) {
-      handleSuggestionSelect(suggetions[selectedSuggestion]);
-    }
-    setSelectedSuggestion(false);
-  };
+  // const handleInputBlur = () => {
+  //   // Handle onBlur - if a suggestion is selected, set it as the search query
+  //   if (selectedSuggestion !== null) {
+  //     handleSuggestionSelect(suggetions[selectedSuggestion]);
+  //   }
+  //   setSelectedSuggestion(false);
+  // };
 
   return (
     <div className="grid grid-flow-col p-2 m-2 shadow-lg">
@@ -114,8 +114,8 @@ const Head = () => {
               setSelectedSuggestion(null);
             }}
             onFocus={() => setShowSuggetions(true)}
-            // onBlur={() => setShowSuggetions(false)}
-            onBlur={handleInputBlur}
+            onBlur={() => setShowSuggetions(false)}
+            // onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
           />
           <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
@@ -136,7 +136,7 @@ const Head = () => {
                           : "py-1 px-3 shadow-sm hover:bg-gray-100"
                       }
                       key={suggetion}
-                      onClick={() => handleSearchSuggestionsClick(suggetion)}
+                      // onClick={() => handleSearchSuggestionsClick(suggetion)}
                     >
                       🔍 {suggetion}
                     </li>
