@@ -14,6 +14,7 @@ const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggetions, setSuggetions] = useState([]);
   const [showSuggetions, setShowSuggetions] = useState(false);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
 
   const searchCaches = useSelector((store) => store.search);
   const dispatch = useDispatch();
@@ -34,25 +35,36 @@ const Head = () => {
 
   const getSearchSuggestions = async () => {
     // console.log("API call");
-    const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
-    const json = await data.json();
-    setSuggetions(json?.[1]);
-    dispatch(
-      cacheResults({
-        [searchQuery]: json?.[1],
-      })
-    );
+    try {
+      const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
+      const json = await data.json();
+      setSuggetions(json?.[1]);
+      dispatch(
+        cacheResults({
+          [searchQuery]: json?.[1],
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
   };
 
   const handleSideBarMenu = () => {
     dispatch(toggleMenu());
   };
 
-  const handleSearchSuggetionsClick = (e, suggetion) => {
-    e.stopPropagation();
-    console.log("🚀 ~ handleSearchSuggetionsClick ~ suggetion:", suggetion);
-    setSearchQuery(suggetion);
-    setShowSuggetions(false);
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowDown" && selectedSuggestion < suggetions?.length - 1) {
+      setSelectedSuggestion(selectedSuggestion + 1);
+    } else if (event.key === "ArrowUp" && selectedSuggestion > 0) {
+      setSelectedSuggestion(selectedSuggestion - 1);
+    } else if (event.key === "Enter" && selectedSuggestion !== null) {
+      // Handle "Enter" key press - get the selected suggestion value
+      const selectedValue = suggetions[selectedSuggestion];
+      setSearchQuery(selectedValue);
+      setShowSuggetions(false);
+      setSelectedSuggestion(null);
+    }
   };
 
   return (
@@ -75,22 +87,32 @@ const Head = () => {
             placeholder="Search"
             className="px-6 w-1/2 border border-gray-400 rounded-l-full p-1"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setSelectedSuggestion(null);
+            }}
             onFocus={() => setShowSuggetions(true)}
             onBlur={() => setShowSuggetions(false)}
+            onKeyDown={handleKeyDown}
           />
           <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
             🔍
           </button>
           <div id="showSuggetionsId" className="showSuggetionsClass">
             {showSuggetions && suggetions?.length > 0 && (
-              <div className="absolute my-1 py-2 px-2  bg-white w-[675px] rounded-lg shadow-lg border border-gray-200 z-10">
+              <div
+                className="absolute my-1 py-2 px-2 bg-white w-[675px] rounded-lg 
+              shadow-lg border border-gray-200 z-10"
+              >
                 <ul>
-                  {suggetions?.map((suggetion) => (
+                  {suggetions?.map((suggetion, index) => (
                     <li
-                      className="py-1 px-3 shadow-sm hover:bg-gray-100"
+                      className={
+                        index === selectedSuggestion
+                          ? "py-1 px-3 bg-gray-200 shadow-sm rounded-lg Selected"
+                          : "py-1 px-3 shadow-sm hover:bg-gray-100"
+                      }
                       key={suggetion}
-                      onClick={(e) => handleSearchSuggetionsClick(e, suggetion)}
                     >
                       🔍 {suggetion}
                     </li>
@@ -101,7 +123,7 @@ const Head = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="cursor-pointer">
         <img className="h-8 col-span-1" alt="user" src={USERICON} />
       </div>
     </div>
