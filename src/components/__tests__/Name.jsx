@@ -4,6 +4,6 @@ import { expect, it} from 'vitest';
 
 it('renders Name element', () => {
   render(<Name />);
-  const sumElement = screen.getByText('Name');
-  expect(sumElement).toBeInTheDocument();
+  const nameElement = screen.getByText('Name');
+  expect(nameElement).toBeInTheDocument();
 });
