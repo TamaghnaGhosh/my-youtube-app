@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const Iframe = ({ videoId }) => {
+const Iframe = ({ videoId, title }) => {
   return (
     <div>
       <iframe
@@ -12,6 +12,7 @@ const Iframe = ({ videoId }) => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
+      <h1 className="text-3xl font-semibold p-2 m-2">{title}</h1>
     </div>
   );
 };

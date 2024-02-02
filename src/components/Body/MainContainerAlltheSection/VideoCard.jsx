@@ -1,8 +1,18 @@
 /* eslint-disable no-unused-vars */
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addMovieName } from "../../../utilts/appSlice";
+
 /* eslint-disable react/prop-types */
 const VideoCard = ({ info }) => {
   const { snippet, statistics } = info;
   const { channelTitle, thumbnails, title } = snippet;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addMovieName(info))
+  }, [])
+  
   // console.log(info);
   return (
     <div className="p-2 m-2 w-64 shadow-lg rounded-lg">
@@ -23,7 +33,9 @@ const VideoCard = ({ info }) => {
 export const AdVideoCard = ({ info }) => {
   return (
     <div className="border border-red-500 bg-red-200 rounded-lg">
-      <h1 className="absolute p-2 m-2 font-bold text-purple-600 text-lg">Higher Order Component</h1>
+      <h1 className="absolute p-2 m-2 font-bold text-purple-600 text-lg">
+        Higher Order Component
+      </h1>
       <VideoCard info={info} />
     </div>
   );
