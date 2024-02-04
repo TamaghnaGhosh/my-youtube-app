@@ -1,14 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appReducer from "./appSlice";
-import searchReducer from "./searchSlice";
-import chatReducer from "./chatSlice";
+import { persistStore } from "redux-persist";
+import persistedReducer from "./rootReducer";
 
 const store = configureStore({
-  reducer: {
-    app: appReducer,
-    search: searchReducer,
-    chat: chatReducer,
-  },
+  reducer: persistedReducer,
 });
+
+export const persistor = persistStore(store);
 
 export default store;

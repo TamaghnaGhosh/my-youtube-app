@@ -3,12 +3,14 @@ import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import Body from "./components/Body";
 import Head from "./components/Head";
-import store from "./utilts/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/Body/MainContainerAlltheSection/MainContainer";
 import Error from "./components/ErrorComponent/Error";
 import Demo from "./components/Demo";
 import Demo2 from "./components/Demo2";
+import store, { persistor } from "./utilts/store";
+import { PersistGate } from "redux-persist/integration/react";
+
 const WatchPage = lazy(() => import("./components/Body/WatchPage"));
 const YouTubeSearch = lazy(() =>
   import("./components/Body/MainContainerAlltheSection/SearchItem")
@@ -63,10 +65,12 @@ const appRouter = createBrowserRouter([
 const App = () => {
   return (
     <Provider store={store}>
-      <div>
-        <Head />
-        <RouterProvider router={appRouter} />
-      </div>
+      <PersistGate loading={null} persistor={persistor}>
+        <div>
+          <Head />
+          <RouterProvider router={appRouter} />
+        </div>
+      </PersistGate>
     </Provider>
   );
 };
