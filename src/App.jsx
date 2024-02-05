@@ -10,6 +10,7 @@ import Demo from "./components/Demo";
 import Demo2 from "./components/Demo2";
 import store, { persistor } from "./utilts/store";
 import { PersistGate } from "redux-persist/integration/react";
+import Shimmer from "./utilts/shimmerLoading";
 
 const WatchPage = lazy(() => import("./components/Body/WatchPage"));
 const YouTubeSearch = lazy(() =>
@@ -29,7 +30,7 @@ const appRouter = createBrowserRouter([
       {
         path: "/watch",
         element: (
-          <Suspense fallback={<h1 className="text-6xl">Loading....</h1>}>
+          <Suspense fallback={<Shimmer />}>
             <WatchPage />
           </Suspense>
         ),
