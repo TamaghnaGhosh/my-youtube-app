@@ -7,7 +7,7 @@ import {
   USERICON,
   YOUTUBE_SEARCH_API,
 } from "../utilts/constants";
-import { toggleMenu } from "../utilts/appSlice";
+import { toggleMenu, closeMenu } from "../utilts/appSlice";
 import { cacheResults } from "../utilts/searchSlice";
 
 const Head = () => {
@@ -20,6 +20,7 @@ const Head = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(closeMenu(true));
     // API call used Debouncing method
     const timer = setTimeout(() => {
       if (searchCaches[searchQuery]) {
