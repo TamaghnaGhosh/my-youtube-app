@@ -20,7 +20,9 @@ const Head = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(closeMenu(true));
+    if (window.location.pathname.includes("watch") !== true) {
+      dispatch(closeMenu(true));
+    }
     // API call used Debouncing method
     const timer = setTimeout(() => {
       if (searchCaches[searchQuery]) {
