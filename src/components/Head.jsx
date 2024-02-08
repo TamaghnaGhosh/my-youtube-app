@@ -80,6 +80,9 @@ const Head = () => {
     setShowSuggetions(false);
   };
 
+  const handleButtonReset = () => {
+    localStorage.removeItem("persist:root");
+  };
   // const handleSearchSuggestionsClick = (suggestion) => {
   //   handleSuggestionSelect(suggestion);
   // };
@@ -121,7 +124,10 @@ const Head = () => {
             // onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
           />
-          <button className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full">
+          <button
+            className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full"
+            onClick={handleButtonReset}
+          >
             🔍
           </button>
           <div id="showSuggetionsId" className="showSuggetionsClass">
