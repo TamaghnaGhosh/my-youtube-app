@@ -8,16 +8,19 @@ import CommentsContainer from "./CommentsLikesAndSubsribeContainer/CommentsConta
 import LiveChat from "./LiveChatMessageContainer/LiveChat";
 import Iframe from "./iFrame";
 const WatchPage = () => {
-  
   const [object, setObject] = useState([]);
 
   const movieName = useSelector((store) => store.app.movieName);
-  
+
   const [searchParams, setSearchParams] = useSearchParams();
   // console.log("🚀 ~ WatchPage ~ searchParams:", searchParams.get("v"));
 
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
+    window.scroll({
+      behavior: "smooth",
+    });
     dispatch(closeMenu(false));
     setObject(movieName?.filter((item) => item?.id === searchParams.get("v")));
     return () => {
