@@ -9,11 +9,15 @@ const Sidebar = () => {
   if (!isMenuOpenClick) return null;
 
   const pages = ["/watch", "/demo", "/search"];
+
+
   return (
     <div
       className={
         pages.find((page) => page === location?.pathname)
-          ? "p-5 shadow-lg w-48"
+          ? "p-5 shadow-lg w-60"
+          : location?.pathname.includes("/search") === true
+          ? "p-5 shadow-lg w-60"
           : "p-5 shadow-lg w-full"
       }
     >

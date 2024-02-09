@@ -1,26 +1,36 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { googleApiKey } from "../../../utilts/constants";
+import { Link, useLocation } from "react-router-dom";
 
 const YouTubeSearch = () => {
-  const [query, setQuery] = useState("");
   const [videos, setVideos] = useState([]);
+  const location = useLocation();
+
   const apiKey = googleApiKey; // Replace with your actual API key
+  useEffect(() => {
+    handleSearch();
+
+    // return () => {
+    //   second
+    // }
+  }, [location?.pathname]);
 
   const handleSearch = async () => {
     try {
-      if (query?.trim() !== "") {
-        const apiUrl = `https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&type=video&maxResults=20&key=${apiKey}`;
-        const response = await fetch(apiUrl);
-        const data = await response?.json();
+      const apiUrl = `https://www.googleapis.com/youtube/v3/search?q=${location.pathname
+        .replaceAll("%20", " ")
+        .substring(8)}&part=snippet&type=video&maxResults=10&key=${apiKey}`;
+      const response = await fetch(apiUrl);
+      const data = await response?.json();
 
-        if (response?.ok) {
-          setVideos(data?.items);
-        } else {
-          console.error(
-            "Error fetching data from YouTube API:",
-            data?.error?.message
-          );
-        }
+      if (response?.ok) {
+        setVideos(data?.items);
+      } else {
+        console.error(
+          "Error fetching data from YouTube API:",
+          data?.error?.message
+        );
       }
     } catch (error) {
       console.error("Error fetching data from YouTube API:", error);
@@ -29,22 +39,21 @@ const YouTubeSearch = () => {
 
   return (
     <div>
-      <input
-        className="border border-black p-2 m-2 mx-2 py-[2px] rounded-lg"
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={() => handleSearch()} className="bg-slate-500 mx-2 m-2 py-[2px] p-2 rounded-lg text-white">Search</button>
-
-      <ul className="p-2 m-2">
-        {videos?.map((video) => (
-          <li key={video.id.videoId}>
-            <h3>{video.snippet.title}</h3>
-            <p>{video.snippet.description}</p>
-          </li>
-        ))}
-      </ul>
+      {videos?.map((video) => (
+        <Link to={`/watch?v=${video?.id?.videoId}`} key={video?.id?.videoId}>
+          <ul className="p-2 m-2">
+            <li>
+              <img
+                src={video.snippet.thumbnails?.medium?.url}
+                alt="thumbnails"
+                className="rounded-lg"
+              />
+              <h3>{video.snippet.title}</h3>
+              <p>{video.snippet.description}</p>
+            </li>
+          </ul>
+        </Link>
+      ))}
     </div>
   );
 };

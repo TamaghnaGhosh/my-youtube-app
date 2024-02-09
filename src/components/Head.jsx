@@ -9,6 +9,7 @@ import {
 } from "../utilts/constants";
 import { toggleMenu, closeMenu } from "../utilts/appSlice";
 import { cacheResults } from "../utilts/searchSlice";
+import { useNavigate } from "react-router-dom";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,6 +19,7 @@ const Head = () => {
 
   const searchCaches = useSelector((store) => store.search);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (window.location.pathname.includes("watch") !== true) {
@@ -42,7 +44,7 @@ const Head = () => {
       const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
       const json = await data.json();
       setSuggetions(json?.[1]);
-      dispatch(
+            dispatch(
         cacheResults({
           [searchQuery]: json?.[1],
         })
@@ -78,17 +80,22 @@ const Head = () => {
     setSearchQuery(suggestion);
     setSelectedSuggestion(false);
     setShowSuggetions(false);
+    navigate(`/search/${suggestion}`)
   };
 
-  const handleButtonReset = () => {
-    localStorage.removeItem("persist:root");
+  const handleButtonSearch = () => {
+    if (searchQuery?.trim() !== "") navigate(`/search/${searchQuery}`);
+    // localStorage.removeItem("persist:root");
   };
+  
   // const handleSearchSuggestionsClick = (suggestion) => {
   //   handleSuggestionSelect(suggestion);
   // };
 
   // const handleInputBlur = () => {
+
   //   // Handle onBlur - if a suggestion is selected, set it as the search query
+  
   //   if (selectedSuggestion !== null) {
   //     handleSuggestionSelect(suggetions[selectedSuggestion]);
   //   }
@@ -124,9 +131,9 @@ const Head = () => {
             // onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
           />
-          <button
+          <button id="searchBtn"
             className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full"
-            onClick={handleButtonReset}
+            onClick={handleButtonSearch}
           >
             🔍
           </button>

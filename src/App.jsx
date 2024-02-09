@@ -2,7 +2,7 @@
 import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import Body from "./components/Body";
-import Head from "./components/Head";
+// import Head from "./components/Head";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MainContainer from "./components/Body/MainContainerAlltheSection/MainContainer";
 import Error from "./components/ErrorComponent/Error";
@@ -45,7 +45,7 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/search",
+        path: "/search/:searchName",
         element: (
           <Suspense fallback={<h1 className="text-6xl">Loading....</h1>}>
             <YouTubeSearch />
@@ -68,7 +68,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <div>
-          <Head />
+          {/* <Head /> */}
           <RouterProvider router={appRouter} />
         </div>
       </PersistGate>
