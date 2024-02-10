@@ -2,7 +2,7 @@
 
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // You can choose different storage options
+import storage from "redux-persist/lib/storage/session"; // You can choose different storage options
 import appReducer from "./appSlice";
 import searchReducer from "./searchSlice";
 import chatReducer from "./chatSlice";
