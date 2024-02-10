@@ -2,9 +2,12 @@
 import { useEffect, useState } from "react";
 import { googleApiKey } from "../../../utilts/constants";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addSuggetionMovies } from "../../../utilts/appSlice";
 
 const YouTubeSearch = () => {
   const [videos, setVideos] = useState([]);
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const apiKey = googleApiKey; // Replace with your actual API key
@@ -26,6 +29,7 @@ const YouTubeSearch = () => {
 
       if (response?.ok) {
         setVideos(data?.items);
+        dispatch(addSuggetionMovies(data?.items));
       } else {
         console.error(
           "Error fetching data from YouTube API:",
@@ -48,7 +52,7 @@ const YouTubeSearch = () => {
                 alt="thumbnails"
                 className="rounded-lg"
               />
-              <h3>{video.snippet.title}</h3>
+              <h3 className="text-xl font-semibold">{video.snippet.title}</h3>
               <p>{video.snippet.description}</p>
             </li>
           </ul>

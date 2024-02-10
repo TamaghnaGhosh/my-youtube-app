@@ -9,9 +9,12 @@ import LiveChat from "./LiveChatMessageContainer/LiveChat";
 import Iframe from "./iFrame";
 const WatchPage = () => {
   const [object, setObject] = useState([]);
+  const [copyObject, setCopyObject] = useState([]);
 
   const movieName = useSelector((store) => store.app.movieName);
-
+  const suggestionMovieNames = useSelector(
+    (store) => store.app.suggetionMovies
+  );
   const [searchParams, setSearchParams] = useSearchParams();
   // console.log("🚀 ~ WatchPage ~ searchParams:", searchParams.get("v"));
 
@@ -23,6 +26,11 @@ const WatchPage = () => {
     });
     dispatch(closeMenu(false));
     setObject(movieName?.filter((item) => item?.id === searchParams.get("v")));
+    setCopyObject(
+      suggestionMovieNames
+        ?.flat(Infinity)
+        ?.filter((item) => item?.id?.videoId === searchParams.get("v"))
+    );
     return () => {
       dispatch(closeMenu(true));
     };
@@ -33,7 +41,7 @@ const WatchPage = () => {
       <div className="px-5 flex w-full">
         <Iframe
           videoId={searchParams.get("v")}
-          title={object?.[0]?.snippet?.title}
+          title={object?.[0]?.snippet?.title || copyObject?.[0]?.snippet?.title}
         />
         <div className="w-full">
           <LiveChat />

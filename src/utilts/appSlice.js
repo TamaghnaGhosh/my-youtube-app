@@ -5,6 +5,7 @@ const appSlice = createSlice({
   initialState: {
     isMenuOpen: true,
     movieName: [],
+    suggetionMovies: [],
   },
   reducers: {
     toggleMenu: (state) => {
@@ -16,7 +17,11 @@ const appSlice = createSlice({
     addMovieName: (state, action) => {
       state.movieName.push(action.payload);
     },
+    addSuggetionMovies: (state, action) => {
+      state.suggetionMovies.push(action.payload);
+    },
   },
 });
-export const { toggleMenu, closeMenu, addMovieName } = appSlice.actions;
+export const { toggleMenu, closeMenu, addMovieName, addSuggetionMovies } =
+  appSlice.actions;
 export default appSlice.reducer;
