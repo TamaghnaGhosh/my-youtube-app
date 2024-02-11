@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsLikesAndSubsribeContainer/CommentsContainer";
 import LiveChat from "./LiveChatMessageContainer/LiveChat";
 import Iframe from "./iFrame";
+import Shimmer from "../../utilts/shimmerLoading";
 const WatchPage = () => {
   const [object, setObject] = useState([]);
   const [copyObject, setCopyObject] = useState([]);
@@ -29,10 +30,11 @@ const WatchPage = () => {
     setCopyObject(
       suggestionMovieNames
         ?.flat(Infinity)
-        ?.filter((item) => item?.id?.videoId === searchParams.get("v"))
+        ?.filter((item) => item?.id?.videoId === searchParams.get("v")) ?? []
     );
     return () => {
       dispatch(closeMenu(true));
+      <Shimmer />;
     };
   }, []);
 

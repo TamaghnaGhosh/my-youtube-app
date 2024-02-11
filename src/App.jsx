@@ -47,7 +47,7 @@ const appRouter = createBrowserRouter([
       {
         path: "/search/:searchName",
         element: (
-          <Suspense fallback={<h1 className="text-6xl">Loading....</h1>}>
+          <Suspense fallback={<Shimmer />}>
             <YouTubeSearch />
           </Suspense>
         ),
@@ -66,7 +66,7 @@ const appRouter = createBrowserRouter([
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<Shimmer/>} persistor={persistor}>
         <div>
           {/* <Head /> */}
           <RouterProvider router={appRouter} />
