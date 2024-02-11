@@ -44,7 +44,7 @@ const Head = () => {
       const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
       const json = await data.json();
       setSuggetions(json?.[1]);
-            dispatch(
+      dispatch(
         cacheResults({
           [searchQuery]: json?.[1],
         })
@@ -80,27 +80,31 @@ const Head = () => {
     setSearchQuery(suggestion);
     setSelectedSuggestion(false);
     setShowSuggetions(false);
-    navigate(`/search/${suggestion}`)
+    navigate(`/search/${suggestion}`);
   };
 
   const handleButtonSearch = () => {
     if (searchQuery?.trim() !== "") navigate(`/search/${searchQuery}`);
     // localStorage.removeItem("persist:root");
   };
-  
-  // const handleSearchSuggestionsClick = (suggestion) => {
-  //   handleSuggestionSelect(suggestion);
-  // };
 
-  // const handleInputBlur = () => {
+  const handleSearchSuggestionsClick = (suggestion) => {
+    handleSuggestionSelect(suggestion);
+  };
 
-  //   // Handle onBlur - if a suggestion is selected, set it as the search query
-  
-  //   if (selectedSuggestion !== null) {
-  //     handleSuggestionSelect(suggetions[selectedSuggestion]);
-  //   }
-  //   setSelectedSuggestion(false);
-  // };
+  const handleInputBlur = (e) => {
+    //   // Handle onBlur - if a suggestion is selected, set it as the search query
+    if (
+      selectedSuggestion !== false &&
+      selectedSuggestion !== null &&
+      selectedSuggestion !== undefined &&
+      e !== undefined
+    ) {
+      handleSuggestionSelect(suggetions[selectedSuggestion]);
+    } else if (e === undefined) {
+      setShowSuggetions(false);
+    }
+  };
 
   return (
     <div className="grid grid-flow-col p-2 m-2 shadow-lg">
@@ -109,7 +113,7 @@ const Head = () => {
           className="h-8 cursor-pointer"
           alt="menu"
           src={HAMBURGER_MENU}
-          onClick={() => handleSideBarMenu()}
+          onClick={(e) => handleSideBarMenu(e)}
         />
         <a href="/">
           <img className="h-8 mx-2" alt="youtubeLogo" src={LOGO_APP} />
@@ -127,11 +131,12 @@ const Head = () => {
               setSelectedSuggestion(null);
             }}
             onFocus={() => setShowSuggetions(true)}
-            onBlur={() => setShowSuggetions(false)}
-            // onBlur={handleInputBlur}
+            // onBlur={() => setShowSuggetions(false)}
+            onBlur={() => handleInputBlur()}
             onKeyDown={handleKeyDown}
           />
-          <button id="searchBtn"
+          <button
+            id="searchBtn"
             className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full"
             onClick={handleButtonSearch}
           >
@@ -152,7 +157,7 @@ const Head = () => {
                           : "py-1 px-3 shadow-sm hover:bg-gray-100"
                       }
                       key={suggetion}
-                      // onClick={() => handleSearchSuggestionsClick(suggetion)}
+                      onClick={() => handleSearchSuggestionsClick(suggetion)}
                     >
                       🔍 {suggetion}
                     </li>
