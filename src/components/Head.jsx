@@ -9,20 +9,21 @@ import {
 } from "../utilts/constants";
 import { toggleMenu, closeMenu } from "../utilts/appSlice";
 import { cacheResults } from "../utilts/searchSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggetions, setSuggetions] = useState([]);
   const [showSuggetions, setShowSuggetions] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+  const location = useLocation();
 
   const searchCaches = useSelector((store) => store.search);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.location.pathname.includes("watch") !== true) {
+    if (location.pathname.includes("/watch") !== true) {
       dispatch(closeMenu(true));
     }
     // API call used Debouncing method
@@ -43,6 +44,7 @@ const Head = () => {
     try {
       const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
       const json = await data.json();
+
       setSuggetions(json?.[1]);
       dispatch(
         cacheResults({
@@ -59,31 +61,32 @@ const Head = () => {
   };
 
   const handleKeyDown = (event) => {
+    let selectedValue = "";
     if (
       event.key === "ArrowDown" &&
       selectedSuggestion < suggetions?.length - 1
     ) {
       setSelectedSuggestion(selectedSuggestion + 1);
+      selectedValue = suggetions[selectedSuggestion + 1];
     } else if (event.key === "ArrowUp" && selectedSuggestion > 0) {
       setSelectedSuggestion(selectedSuggestion - 1);
+      selectedValue = suggetions[selectedSuggestion - 1];
     } else if (event.key === "Enter" && selectedSuggestion !== null) {
       // Handle "Enter" key press - get the selected suggestion value
       // const selectedValue = suggetions[selectedSuggestion];
-      // setSearchQuery(selectedValue);
-      // setShowSuggetions(false);
-      // setSelectedSuggestion(null);
       handleSuggestionSelect(suggetions[selectedSuggestion]);
     }
+    console.log("🚀 ~ handleKeyDown ~ selectedValue:", selectedValue);
   };
 
   const handleSuggestionSelect = (suggestion) => {
     setSearchQuery(suggestion);
-    setSelectedSuggestion(false);
+    setSelectedSuggestion(null);
     setShowSuggetions(false);
     navigate(`/search/${suggestion}`);
   };
 
-  const handleButtonSearch = () => {
+  const handleButtonSearchSubmit = () => {
     if (searchQuery?.trim() !== "") navigate(`/search/${searchQuery}`);
     // localStorage.removeItem("persist:root");
   };
@@ -92,18 +95,9 @@ const Head = () => {
     handleSuggestionSelect(suggestion);
   };
 
-  const handleInputBlur = (e) => {
-    //   // Handle onBlur - if a suggestion is selected, set it as the search query
-    if (
-      selectedSuggestion !== false &&
-      selectedSuggestion !== null &&
-      selectedSuggestion !== undefined &&
-      e !== undefined
-    ) {
-      handleSuggestionSelect(suggetions[selectedSuggestion]);
-    } else if (e === undefined) {
-      setShowSuggetions(false);
-    }
+  const handleInputBlur = () => {
+    // Delay hiding suggestions to allow click on suggestion
+    setTimeout(() => setShowSuggetions(false), 200);
   };
 
   return (
@@ -129,16 +123,16 @@ const Head = () => {
             onChange={(e) => {
               setSearchQuery(e.target.value);
               setSelectedSuggestion(null);
+              setShowSuggetions(true);
             }}
             onFocus={() => setShowSuggetions(true)}
-            // onBlur={() => setShowSuggetions(false)}
-            onBlur={() => handleInputBlur()}
+            onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
           />
           <button
             id="searchBtn"
             className="border border-gray-400 py-1 px-5 bg-gray-100 rounded-r-full"
-            onClick={handleButtonSearch}
+            onClick={handleButtonSearchSubmit}
           >
             🔍
           </button>
