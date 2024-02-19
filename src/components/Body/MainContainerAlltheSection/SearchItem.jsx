@@ -23,7 +23,7 @@ const YouTubeSearch = () => {
     try {
       const apiUrl = `https://www.googleapis.com/youtube/v3/search?q=${location.pathname
         .replaceAll("%20", " ")
-        .substring(8)}&part=snippet&type=video&maxResults=10&key=${apiKey}`;
+        .substring(8)}&part=snippet&type=video&maxResults=50&key=${apiKey}`;
       const response = await fetch(apiUrl);
       const data = await response?.json();
 

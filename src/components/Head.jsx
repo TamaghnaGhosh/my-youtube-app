@@ -13,6 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchQueryCopy, setSearchQueryCopy] = useState("");
   const [suggetions, setSuggetions] = useState([]);
   const [showSuggetions, setShowSuggetions] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
@@ -68,21 +69,23 @@ const Head = () => {
     ) {
       setSelectedSuggestion(selectedSuggestion + 1);
       selectedValue = suggetions[selectedSuggestion + 1];
+      setSearchQueryCopy(selectedValue);
     } else if (event.key === "ArrowUp" && selectedSuggestion > 0) {
       setSelectedSuggestion(selectedSuggestion - 1);
       selectedValue = suggetions[selectedSuggestion - 1];
+      setSearchQueryCopy(selectedValue);
     } else if (event.key === "Enter" && selectedSuggestion !== null) {
       // Handle "Enter" key press - get the selected suggestion value
       // const selectedValue = suggetions[selectedSuggestion];
       handleSuggestionSelect(suggetions[selectedSuggestion]);
     }
-    console.log("🚀 ~ handleKeyDown ~ selectedValue:", selectedValue);
   };
 
   const handleSuggestionSelect = (suggestion) => {
     setSearchQuery(suggestion);
     setSelectedSuggestion(null);
     setShowSuggetions(false);
+    setSearchQueryCopy(suggestion);
     navigate(`/search/${suggestion}`);
   };
 
@@ -119,9 +122,10 @@ const Head = () => {
             type="text"
             placeholder="Search"
             className="px-6 w-1/2 border border-gray-400 rounded-l-full p-1"
-            value={searchQuery}
+            value={searchQueryCopy}
             onChange={(e) => {
               setSearchQuery(e.target.value);
+              setSearchQueryCopy(e.target.value);
               setSelectedSuggestion(null);
               setShowSuggetions(true);
             }}
