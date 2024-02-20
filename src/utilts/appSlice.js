@@ -4,8 +4,8 @@ const appSlice = createSlice({
   name: "app",
   initialState: {
     isMenuOpen: true,
-    movieName: [],
-    suggetionMovies: [],
+    // movieName: [],
+    // suggetionMovies: [],
   },
   reducers: {
     toggleMenu: (state) => {
@@ -14,14 +14,13 @@ const appSlice = createSlice({
     closeMenu: (state, actions) => {
       state.isMenuOpen = actions.payload;
     },
-    addMovieName: (state, action) => {
-      state.movieName.push(action.payload);
-    },
-    addSuggetionMovies: (state, action) => {
-      state.suggetionMovies.push(action.payload);
-    },
+    // addMovieName: (state, action) => {
+    //   state.movieName.push(action.payload);
+    // },
+    // addSuggetionMovies: (state, action) => {
+    //   state.suggetionMovies.push(action.payload);
+    // },
   },
 });
-export const { toggleMenu, closeMenu, addMovieName, addSuggetionMovies } =
-  appSlice.actions;
+export const { toggleMenu, closeMenu } = appSlice.actions;
 export default appSlice.reducer;

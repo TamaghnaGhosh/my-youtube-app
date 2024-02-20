@@ -2,15 +2,15 @@
 import { useEffect, useState } from "react";
 import { googleApiKey } from "../../../utilts/constants";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addSuggetionMovies } from "../../../utilts/appSlice";
+// import { useDispatch } from "react-redux";
+// import { addSuggetionMovies } from "../../../utilts/appSlice";
 
 const YouTubeSearch = () => {
   const [videos, setVideos] = useState([]);
-  const dispatch = useDispatch();
   const location = useLocation();
-
   const apiKey = googleApiKey; // Replace with your actual API key
+
+  // const dispatch = useDispatch();
   useEffect(() => {
     handleSearch();
 
@@ -29,7 +29,7 @@ const YouTubeSearch = () => {
 
       if (response?.ok) {
         setVideos(data?.items);
-        dispatch(addSuggetionMovies(data?.items));
+        // dispatch(addSuggetionMovies(data?.items));
       } else {
         console.error(
           "Error fetching data from YouTube API:",
@@ -48,12 +48,12 @@ const YouTubeSearch = () => {
           <ul className="p-2 m-2">
             <li>
               <img
-                src={video.snippet.thumbnails?.medium?.url}
+                src={video?.snippet?.thumbnails?.medium?.url}
                 alt="thumbnails"
                 className="rounded-lg"
               />
-              <h3 className="text-xl font-semibold">{video.snippet.title}</h3>
-              <p>{video.snippet.description}</p>
+              <h3 className="text-xl font-semibold">{video?.snippet?.title}</h3>
+              <p>{video?.snippet?.description}</p>
             </li>
           </ul>
         </Link>

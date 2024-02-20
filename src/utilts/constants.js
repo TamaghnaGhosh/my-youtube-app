@@ -5,16 +5,25 @@ export const LOGO_APP =
 export const USERICON =
   "https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png";
 
- export const googleApiKey = import.meta.env.VITE_MY_GOOGLE_API_KEY;
+export const googleApiKey = import.meta.env.VITE_MY_GOOGLE_API_KEY;
 
 export const YOUTUBE_VIDEOS_API =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" +
   googleApiKey;
 
+export const YOUTUBE_VIDEO_WATCH_API =
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&key=" +
+  googleApiKey +
+  "&id=";
+
 export const CORS_API_KEY = "https://corsproxy.org/?";
 
-export const YOUTUBE_SEARCH_API = `${CORS_API_KEY}${encodeURIComponent(`https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`)}`;
+export const YOUTUBE_SEARCH_API = `${CORS_API_KEY}${encodeURIComponent(
+  `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`
+)}`;
 
-export const COMMETS_API = `${CORS_API_KEY}${encodeURIComponent(`https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=`)}`;
+export const COMMETS_API = `${CORS_API_KEY}${encodeURIComponent(
+  `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=`
+)}`;
 
 export const LIVE_CHAT_COUNT = 25;

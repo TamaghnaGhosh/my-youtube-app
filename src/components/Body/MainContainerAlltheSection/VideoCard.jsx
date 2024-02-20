@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { addMovieName } from "../../../utilts/appSlice";
+// import { useEffect } from "react";
+// import { useDispatch } from "react-redux";
+// import { addMovieName } from "../../../utilts/appSlice";
 
 /* eslint-disable react/prop-types */
 const VideoCard = ({ info }) => {
   const { snippet, statistics } = info;
   const { channelTitle, thumbnails, title } = snippet;
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addMovieName(info))
-  }, [])
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(addMovieName(info))
+  // }, [])
   
   // console.log(info);
   return (
