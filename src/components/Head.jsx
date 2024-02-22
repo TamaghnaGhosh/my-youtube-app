@@ -24,10 +24,24 @@ const Head = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    handleMenuClose();
+    // API call used Debouncing method
+    debounceSearchSuggestions();
+    // Cleanup function
+    return clearTimeout;
+  }, [searchQuery]);
+
+  useEffect(() => {
+    setSearchQueryCopy(location.pathname.replaceAll("%20", " ").substring(8));
+  }, []);
+
+  const handleMenuClose = () => {
     if (location.pathname.includes("/watch") !== true) {
       dispatch(closeMenu(true));
     }
-    // API call used Debouncing method
+  };
+
+  const debounceSearchSuggestions = () => {
     const timer = setTimeout(() => {
       if (searchCaches[searchQuery]) {
         setSuggetions(searchCaches[searchQuery]);
@@ -35,14 +49,8 @@ const Head = () => {
         getSearchSuggestions();
       }
     }, 200);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery]);
-
-  useEffect(() => {
-    setSearchQueryCopy(location.pathname.replaceAll("%20", " ").substring(8));
-  }, []);
+    return () => clearTimeout(timer);
+  };
 
   const getSearchSuggestions = async () => {
     // console.log("API call");
