@@ -40,6 +40,10 @@ const Head = () => {
     };
   }, [searchQuery]);
 
+  useEffect(() => {
+    setSearchQueryCopy(location.pathname.replaceAll("%20", " ").substring(8));
+  }, []);
+
   const getSearchSuggestions = async () => {
     // console.log("API call");
     try {
@@ -78,6 +82,11 @@ const Head = () => {
       // Handle "Enter" key press - get the selected suggestion value
       // const selectedValue = suggetions[selectedSuggestion];
       handleSuggestionSelect(suggetions[selectedSuggestion]);
+    } else if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("searchBtn").click();
+      setSelectedSuggestion(null);
+      setShowSuggetions(false);
     }
   };
 
