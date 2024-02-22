@@ -9,7 +9,7 @@ import {
 } from "../utilts/constants";
 import { toggleMenu, closeMenu } from "../utilts/appSlice";
 import { cacheResults } from "../utilts/searchSlice";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -129,9 +129,9 @@ const Head = () => {
           src={HAMBURGER_MENU}
           onClick={(e) => handleSideBarMenu(e)}
         />
-        <a href="/">
+        <Link to="/">
           <img className="h-8 mx-2" alt="youtubeLogo" src={LOGO_APP} />
-        </a>
+        </Link>
       </div>
       <div className="col-span-10 px-10">
         <div>
