@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   HAMBURGER_MENU,
@@ -31,8 +31,10 @@ const Head = () => {
     return clearTimeout;
   }, [searchQuery]);
 
-  useEffect(() => {
-    setSearchQueryCopy(location.pathname.replaceAll("%20", " ").substring(8));
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      setSearchQueryCopy(location.pathname.replaceAll("%20", " ").substring(8));
+    }, 1000);
   }, []);
 
   const handleMenuClose = () => {
