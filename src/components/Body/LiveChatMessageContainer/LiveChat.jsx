@@ -50,23 +50,23 @@ const LiveChat = () => {
           setLiveMessage("");
         }}
       >
-        <input
-          className={
-            isMenuOpen
-              ? "w-[350px] rounded-full p-2 m-2 border border-gray-200"
-              : "w-[550px] rounded-full p-2 m-2 border border-gray-200"
-          }
-          placeholder="chat...."
-          type="text"
-          onChange={(e) => setLiveMessage(e.target.value)}
-          value={liveMessage}
-        />
-        <button className="bg-slate-200 px-4 py-2 rounded-full">Send</button>
+        <div className="flex">
+          <input
+            className={
+              isMenuOpen
+                ? "w-[350px] rounded-full p-2 m-2 border border-gray-200"
+                : "w-[550px] rounded-full p-2 m-2 border border-gray-200"
+            }
+            placeholder="chat...."
+            type="text"
+            onChange={(e) => setLiveMessage(e.target.value)}
+            value={liveMessage}
+          />
+          <button className="bg-slate-200 p-2 m-2 px-4 py-2 rounded-full">Send</button>
+        </div>
       </form>
     </>
   );
 };
 
 export default LiveChat;
-
-
