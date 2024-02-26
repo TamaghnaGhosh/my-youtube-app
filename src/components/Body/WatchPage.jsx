@@ -70,8 +70,8 @@ const WatchPage = () => {
             <LiveChat />
           ) : (
             <>
-              <div className="m-0 p-0 font-bold text-xl">Recommendation</div>
-              <span>Still a work in progress.....</span>
+              <div className="m-2 p-2 font-bold text-xl">Recommendation</div>
+              <span className="m-2 p-2">Still a work in progress.....</span>
             </>
           )}
         </div>
