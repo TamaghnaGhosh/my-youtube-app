@@ -26,4 +26,9 @@ export const COMMETS_API = `${CORS_API_KEY}${encodeURIComponent(
   `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=`
 )}`;
 
-export const LIVE_CHAT_COUNT = 25;
+export const RECOMMAND_API =
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&part=contentDetails&chart=mostPopular&maxResults=21&regionCode=IN&key=" +
+  googleApiKey +
+  "&videoCategoryId=";
+
+  export const LIVE_CHAT_COUNT = 25;
