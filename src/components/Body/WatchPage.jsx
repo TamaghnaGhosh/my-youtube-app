@@ -38,19 +38,23 @@ const WatchPage = () => {
     // );
 
     getVideoDetails();
-    
+
     return () => {
       dispatch(closeMenu(true));
       <Shimmer />;
     };
   }, []);
 
-
   const getVideoDetails = async () => {
     const data = await fetch(YOUTUBE_VIDEO_WATCH_API + searchParams.get("v"));
     const json = await data?.json();
     setWVideo(json?.items[0]);
   };
+
+  let liveBroadcastContent = Wvideo?.snippet?.liveBroadcastContent;
+  let categoryId = Wvideo?.snippet?.categoryId;
+  console.log("🚀 ~ WatchPage ~ categoryId:", categoryId);
+  console.log("🚀 ~ WatchPage ~ liveBroadcastContent:", liveBroadcastContent);
 
   return (
     <div className="flex flex-col w-full">
@@ -62,7 +66,15 @@ const WatchPage = () => {
           description={Wvideo?.snippet?.description}
         />
         <div className="w-full">
-          <LiveChat />
+          {liveBroadcastContent !== "none" ? (
+            <LiveChat />
+          ) : (
+            <>
+              <div className="font-bold text-xl">Recommendation</div>
+              <span>Still a work in progress</span>
+              <span>...........................................</span>
+            </>
+          )}
         </div>
       </div>
       <CommentsContainer videoId={searchParams.get("v")} />
