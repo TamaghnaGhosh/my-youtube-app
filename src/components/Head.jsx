@@ -57,7 +57,11 @@ const Head = () => {
   const getSearchSuggestions = async () => {
     // console.log("API call");
     try {
-      const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`);
+      const data = await fetch(`${YOUTUBE_SEARCH_API}${searchQuery}`, {
+        headers: {
+          "x-cors-api-key": "temp_7143d6203f665371834860b5c036ac46",
+        },
+      });
       const json = await data.json();
 
       setSuggetions(json?.[1]);

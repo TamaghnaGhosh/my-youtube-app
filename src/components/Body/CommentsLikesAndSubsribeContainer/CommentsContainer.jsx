@@ -1,11 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import {
-  COMMETS_API,
-  googleApiKey,
-  USERICON,
-} from "../../../utilts/constants";
+import { COMMETS_API, googleApiKey, USERICON } from "../../../utilts/constants";
 
 const commentsData = [
   {
@@ -90,7 +86,12 @@ const CommentsContainer = ({ videoId }) => {
   const fetchComments = async () => {
     try {
       const response = await fetch(
-        `${COMMETS_API}${videoId}&key=${googleApiKey}`
+        `${COMMETS_API}${videoId}&key=${googleApiKey}`,
+        {
+          headers: {
+            "x-cors-api-key": "temp_7143d6203f665371834860b5c036ac46",
+          },
+        }
       );
 
       if (!response.ok) {

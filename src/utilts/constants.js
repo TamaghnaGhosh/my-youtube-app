@@ -17,16 +17,22 @@ export const YOUTUBE_VIDEO_WATCH_API =
   "&id=";
 
 // export const CORS_API_KEY = "https://corsproxy.org/?";
-export const CORS_API_KEY = "https://thingproxy.freeboard.io/fetch/";
+// export const CORS_API_KEY = "https://thingproxy.freeboard.io/fetch/";
+
+export const CORS_API_KEY = "https://proxy.cors.sh/";
 
 // export const YOUTUBE_SEARCH_API = `${CORS_API_KEY}${encodeURIComponent(
 //   `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`
 // )}`;
+// export const YOUTUBE_SEARCH_API = `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`;
+
 export const YOUTUBE_SEARCH_API = `${CORS_API_KEY}https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`;
+
 
 // export const COMMETS_API = `${CORS_API_KEY}${encodeURIComponent(
 //   `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=`
 // )}`;
+
 export const COMMETS_API = `${CORS_API_KEY}https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=`;
 
 export const RECOMMAND_API =
