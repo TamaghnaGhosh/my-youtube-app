@@ -101,6 +101,10 @@ const Head = () => {
       document.getElementById("searchBtn").click();
       setSelectedSuggestion(null);
       setShowSuggetions(false);
+    } else if (event.keyCode === 27 && event.code === "Escape" && event.key === "Escape") {
+      setSelectedSuggestion(null);
+      setSearchQueryCopy("");
+      setShowSuggetions(false);
     }
   };
 
